@@ -1,10 +1,10 @@
 // BarCodeGenerator.cpp : Defines the entry point for the console application.
 //
-#include "Headers/stdafx.h"
-#include "Headers/ReadFromConsole.h"
-#include "Headers/Create13NrCode.h"
-#include "Headers/FileRead.h"
-#include "Headers/CreateHTMLBarCode.h"
+#include "../Headers/stdafx.h"
+#include "../Headers/ReadFromConsole.h"
+#include "../Headers/Create13NrCode.h"
+#include "../Headers/FileRead.h"
+#include "../Headers/CreateHTMLBarCode.h"
 
 #define FileEndingDigEAN13 "../DataBase/EndingDigEAN13.txt"
 #define FileStructEAN131 "../DataBase/StructEAN13.txt"
@@ -23,13 +23,13 @@ int main()
 
     ReadFromConsole input;
 
-    do {
+   do {
 
         productName = input.getProductName();
         enteredCode = input.getInputArrayCode();
 
         if (enteredCode.size() == 0)
-            exit(0);
+            return 0;
 
         Create13NrCode create13NrCode;
         code13 = create13NrCode.get13NrCode(enteredCode, countryCode);
@@ -40,11 +40,12 @@ int main()
 
         CreateHTMLBarCode createHtmlBarCode;
         createHtmlBarCode.GraficCodeBar(dataFromEAN131, dataFromEAN13, code13, productName);
-        createHtmlBarCode.openBrowser();
+        //createHtmlBarCode.openBrowser();
 
         cout << "\n\nDo you want to create another Bar Code ? Yes(y) / No(n) : ";
         cin >> reload;
         getchar();
+        
     } while (toupper(reload) == 'Y');
 
     return 0;

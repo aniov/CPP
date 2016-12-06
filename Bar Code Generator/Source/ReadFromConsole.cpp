@@ -1,20 +1,19 @@
+#include "../Headers/stdafx.h"
 #include "../Headers/ReadFromConsole.h"
 
 using namespace std;
 
 
 	vector<char> ReadFromConsole::getInputArrayCode() {
-		return inputArayCode;
+		return readCodeNumber();
 	}
 	string ReadFromConsole::getProductName() {
-		return productName;
+		return readProductName();
 	}
 
 
 	ReadFromConsole::ReadFromConsole()
 	{
-		productName = readProductName();
-		inputArayCode = readCodeNumber();
 	}
 
 	vector<char> ReadFromConsole::readCodeNumber() {
@@ -25,9 +24,9 @@ using namespace std;
 		bool valid = false;
 
 		do {
-			cout << "\tEnter product code (made of max 9 digits, if it's less, it will be autocomplete): \n\t";
+			cout << "\tEnter product code (made of max 9 digits, if it's less, it will be autocoplete): \n\t";
 			cin >> str;
-			for (int i = 0; i < str.size(); i++)
+			for (unsigned int i = 0; i < str.size(); i++)
 				if (!isdigit(str[i]) || str.size() > 9) {
 					cout << "\tcode must have max. 9 digits (no characters)\n\tYou've entered -> " 
 						<< str.size() << " digits"<< "\n\tRetry? Yes(y) / No(n) : ";

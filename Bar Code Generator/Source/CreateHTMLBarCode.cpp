@@ -2,26 +2,25 @@
 
 using namespace std;
 
+ofstream theFile;
+
 CreateHTMLBarCode::CreateHTMLBarCode()
 {
 }
 
-ofstream CreateHTMLBarCode::createFile(string productName) {
+void CreateHTMLBarCode::createFile(string productName, ofstream* theFile) {
 
-	ofstream file;
-	file.exceptions(ofstream::failbit | ofstream::badbit);
+	theFile->exceptions(ofstream::failbit | ofstream::badbit);
 
 	try {
-		file.open(productName + ".html");
-		return file;
+		theFile->open(productName + ".html");
 	}
 	catch (const ofstream::failure e){
 
 		cout << "File with name: " + productName + "cannot be created\nThe program will exit now";
 		cin.get(); cin.get();
-		exit(0);
+		//exit(0);
 	}
-
 }
 
 void CreateHTMLBarCode::GraficCodeBar(vector<string> FisStruct, vector<string> FisEndingP, vector<int> code13, string productName) {
@@ -30,7 +29,8 @@ void CreateHTMLBarCode::GraficCodeBar(vector<string> FisStruct, vector<string> F
 
 	int Y1 = 40, X1 = 20, Y2, pas = 2;
 	int Xt = X1 - 10, Yt = Y1 + 54, Xp = X1 - 5, Yp = Y1 - 15;
-	ofstream file = createFile(productName);
+	ofstream file;
+	createFile(productName, &file);
 	
 	file << "<!DOCTYPE html>" << endl;
 	file << "<html>" << endl;
@@ -41,8 +41,7 @@ void CreateHTMLBarCode::GraficCodeBar(vector<string> FisStruct, vector<string> F
 		if ((i < 3) || ((i < 49) && (i>45)) || (i>91)) 	
 			Y2 = 95;									
 		else Y2 = 80;									
-		if (binaryCode[i] == 1) file << " <line x1=\"" << X1 << "\"y1=\"" << Y1 << "\"x2=\"" << X1 << "\"y2=\"" << Y2 <<
-			"\"style=\"stroke:rgb(0, 0, 0);stroke-width:2\"\/>\n";
+		if (binaryCode[i] == 1) file << " <line x1=\"" << X1 << "\"y1=\"" << Y1 << "\"x2=\"" << X1 << "\"y2=\"" << Y2 << "\"style=\"stroke:rgb(0, 0, 0);stroke-width:2\"/>\n";
 		X1 += +pas;
 	}
 	
@@ -68,12 +67,12 @@ void CreateHTMLBarCode::GraficCodeBar(vector<string> FisStruct, vector<string> F
 	fileName = productName + ".html";
 
 }
+//Works only under Windows
+/*void CreateHTMLBarCode::openBrowser() {
 
-void CreateHTMLBarCode::openBrowser() {
-
-	const char* fileTitle = fileName.c_str(); // Transform from string to const char*
+	const char* fileTitle = fileName.c_str(); // Transform from string to const char
 	ShellExecute(NULL, "open", fileTitle, "", ".", SW_SHOWNORMAL);
-}
+}*/
 
 
 CreateHTMLBarCode::~CreateHTMLBarCode()

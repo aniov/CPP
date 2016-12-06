@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <windows.h>
+//#include <windows.h>
 #include "TransformToBinary.h"
 
 class CreateHTMLBarCode
@@ -16,7 +16,7 @@ public:
 	void openBrowser();
 private:
 	std::string fileName;
-	std::ofstream createFile(std::string);
+	void createFile(std::string, std::ofstream*);
 	TransformToBinary transformToBinary;
 };
 

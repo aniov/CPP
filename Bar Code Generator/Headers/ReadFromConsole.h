@@ -21,7 +21,5 @@ private:
 	* Reads the title of the product
 	*/
 	std::string readProductName();
-	std::vector<char> inputArayCode;
-	std::string productName;
 };
 
